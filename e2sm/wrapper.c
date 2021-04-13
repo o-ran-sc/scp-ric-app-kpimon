@@ -1,7 +1,8 @@
 #include <errno.h>
 #include "wrapper.h"
 
-ssize_t e2sm_encode_ric_event_trigger_definition(void *buffer, size_t buf_size, size_t event_trigger_count, long *RT_periods) {
+ssize_t e2sm_encode_ric_event_trigger_definition(void *buffer, size_t buf_size, size_t event_trigger_count, long RT_periods) {
+//add formate2 code
 	E2SM_KPM_EventTriggerDefinition_t *eventTriggerDef = (E2SM_KPM_EventTriggerDefinition_t *)calloc(1, sizeof(E2SM_KPM_EventTriggerDefinition_t));
 	if(!eventTriggerDef) {
 		fprintf(stderr, "alloc EventTriggerDefinition failed\n");
@@ -14,22 +15,9 @@ ssize_t e2sm_encode_ric_event_trigger_definition(void *buffer, size_t buf_size, 
 		ASN_STRUCT_FREE(asn_DEF_E2SM_KPM_EventTriggerDefinition, eventTriggerDef);
 		return -1;
 	}
-
-	eventTriggerDef->present = E2SM_KPM_EventTriggerDefinition_PR_eventDefinition_Format1;
-	eventTriggerDef->choice.eventDefinition_Format1 = innerDef;
-
-	struct E2SM_KPM_EventTriggerDefinition_Format1__policyTest_List *policyTestList = (struct E2SM_KPM_EventTriggerDefinition_Format1__policyTest_List *)calloc(1, sizeof(struct E2SM_KPM_EventTriggerDefinition_Format1__policyTest_List));
-	innerDef->policyTest_List = policyTestList;
-	
-	int index = 0;
-	while(index < event_trigger_count) {
-		Trigger_ConditionIE_Item_t *triggerCondition = (Trigger_ConditionIE_Item_t *)calloc(1, sizeof(Trigger_ConditionIE_Item_t));
-		assert(triggerCondition != 0);
-		triggerCondition->report_Period_IE = RT_periods[index];
-
-		ASN_SEQUENCE_ADD(&policyTestList->list, triggerCondition);
-		index++;
-	}
+	innerDef->reportingPeriod=RT_periods;
+	eventTriggerDef->eventDefinition_formats.present = E2SM_KPM_EventTriggerDefinition__eventDefinition_formats_PR_eventDefinition_Format1;
+	eventTriggerDef->eventDefinition_formats.choice.eventDefinition_Format1 = innerDef;
 
 	asn_enc_rval_t encode_result;
     encode_result = aper_encode_to_buffer(&asn_DEF_E2SM_KPM_EventTriggerDefinition, NULL, eventTriggerDef, buffer, buf_size);
@@ -41,6 +29,7 @@ ssize_t e2sm_encode_ric_event_trigger_definition(void *buffer, size_t buf_size, 
 	    return encode_result.encoded;
 	}
 }
+
 
 ssize_t e2sm_encode_ric_action_definition(void *buffer, size_t buf_size, long ric_style_type) {
 	E2SM_KPM_ActionDefinition_t *actionDef = (E2SM_KPM_ActionDefinition_t *)calloc(1, sizeof(E2SM_KPM_ActionDefinition_t));
