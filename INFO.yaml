@@ -1,0 +1,54 @@
+---
+project: 'scp_ric_app_kpimon'
+project_creation_date: '2020-06-24'
+project_category: ''
+lifecycle_state: 'Incubation'
+project_lead: &oran_scp_ric_app_kpimon_ptl
+    name: 'Jeongyeob Oak'
+    email: 'jy.oak@samsung.com'
+    id: 'jyoak'
+    company: 'Samsung'
+    timezone: 'America/New_York'
+primary_contact: *oran_scp_ric_app_kpimon_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.o-ran-sc.org/projects/'
+    key: 'scp_ric_app_kpimon'
+mailing_list:
+    type: 'groups.io'
+    url: 'technical-discuss@lists.o-ran-sc.org'
+    tag: '[]'
+realtime_discussion:
+    type: 'irc'
+    server: 'freenode.net'
+    channel: '#oran'
+meetings:
+    - type: 'gotomeeting+irc'
+      agenda: 'https://wiki.o-ran-sc.org/display/'
+      url: ''
+      server: 'freenode.net'
+      channel: '#oran'
+      repeats: ''
+      time: ''
+repositories:
+    - scp/ric-app/kpimon
+committers:
+    - <<: *oran_scp_ric_app_kpimon_ptl
+    - name: 'Jun Song'
+      email: 'junhyuk.song@samsung.com'
+      id: 'junny'
+      company: 'Samsung'
+      timezone: 'America/New_York'
+    - name: 'Jinwei.fan'
+      email: 'jinwei.fan@samsung.com'
+      id: 'jinwei.fan'
+      company: 'Samsung'
+      timezone: 'America/New_York'
+
+tsc:
+    # yamllint disable rule:line-length
+    approval: 'https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=1179656#ORANSCTechnicalOversightCommittee(TOC)-20200624'
+    changes:
+        - type: ''
+          name: ''
+          link: ''
